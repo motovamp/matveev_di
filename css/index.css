@@ -1,0 +1,244 @@
+﻿body {
+	background:#cfcfcf;
+	color:#000000;
+	margin:0;
+	padding:0;
+}
+
+#content_inner {
+	/* width:100%; */
+}
+
+#navigation {
+	background:#7f7f7f;
+	color:#ffffff;
+	position:fixed;
+	z-index:200;
+	top:0;
+	width:100%;
+	height:50px;
+	text-align:center;
+}
+
+#content {
+	/* margin-top:50px; */
+	/* margin:0; */
+	padding-top:50px;
+	/* padding-bottom:50px; */
+	width:90%;
+	left:5%;
+	z-index:100;
+	background:#ffffff;
+	color:#000000;
+	text-align:center;
+	position:absolute;
+	height:100%-50px;
+	top:0;
+	bottom:0;
+	box-shadow:0 0 10px rgba(0,0,0,0.8);
+}
+/* menu */
+#menu {
+  list-style: none; /*убираем маркеры списка*/
+  margin: 0; /*убираем отступы*/
+  padding-left:10%; /*отступ под логотип*/
+  padding-right:10%;
+  /*margin-top:25px;*/ /*делаем отступ сверху*/
+  background:#7f7f7f; /*добавляем фон всему меню (заменив этот параметр, вы поменяете цвет всего меню)*/
+  height: 50px; /*задаем высоту*/
+}
+
+#menu_link {
+  text-decoration: none; /*убираем подчеркивание текста ссылок*/
+  background:#7f7f7f; /*добавляем фон к пункту меню (заменив этот параметр, вы поменяете цвет всех пунктов меню)*/
+  color:#000000; /*меняем цвет ссылок*/
+  padding:0px 15px; /*добавляем отступ*/
+  font-family: arial; /*меняем шрифт*/
+  line-height:50px; /*ровняем меню по вертикали*/
+  display: block; 
+  border-right: 1px solid #5f5f5f; /*добавляем бордюр справа*/
+  /* border-left: 1px solid #5f5f5f; */ /* и слева */
+  -moz-transition: all 0.3s 0.01s ease; /*делаем плавный переход*/
+  /*-o-transition: all 0.3s 0.01s ease;*/
+  -webkit-transition: all 0.3s 0.01s ease;
+}
+
+#menu_alink {
+  text-decoration: none; /*убираем подчеркивание текста ссылок*/
+  background:#cfcfcf; /*добавляем фон к пункту меню (заменив этот параметр, вы поменяете цвет всех пунктов меню)*/
+  color:#000000; /*меняем цвет ссылок*/
+  padding:0px 15px; /*добавляем отступ*/
+  font-family: arial; /*меняем шрифт*/
+  line-height:50px; /*ровняем меню по вертикали*/
+  display: block; 
+  border-right: 1px solid #5f5f5f; /*добавляем бордюр справа*/
+  /* -moz-transition: all 0.3s 0.01s ease;
+  
+  -webkit-transition: all 0.3s 0.01s ease; */
+}
+
+#menu_link:hover {
+  background:#cfcfcf;/*добавляем эффект при наведении*/
+}
+
+#menu_btn {
+  float:left; /*Размещаем список горизонтально для реализации меню*/
+}
+
+#menu_exit_btn {
+  float:right; /*Размещаем список горизонтально для реализации меню*/
+  /* padding-right:200px; */
+  border-left: 1px solid #5f5f5f;
+}
+
+#menu_index_btn {
+  float:left; /*Размещаем список горизонтально для реализации меню*/
+  /* padding-right:200px; */
+  border-left: 1px solid #5f5f5f;
+}
+/* --------------------------------------------------------------- */
+/* index-menu */
+/* --------------------------------------------------------------- */
+#index_menu {
+	/* z-index:201; */
+	background:#363636;
+	width:20%;
+	margin:150px auto;
+	padding:8px;
+	border-radius:8px;
+}
+#main_menu {
+	list-style:none;
+	background:#363636;
+	padding:4px 8px 8px 8px;
+	margin:0;
+	/* border-radius:4px; */
+}
+#main_menu_btn {
+	
+}
+#main_menu_link {
+  margin-top:4px;
+  text-decoration: none; /*убираем подчеркивание текста ссылок*/
+  background:#7f7f7f; /*добавляем фон к пункту меню (заменив этот параметр, вы поменяете цвет всех пунктов меню)*/
+  color:#000000; /*меняем цвет ссылок*/
+  /* padding:0px 15px; */ /*добавляем отступ*/
+  font-family: arial; /*меняем шрифт*/
+  line-height:50px; /*ровняем меню по вертикали*/
+  display: block; 
+  border: 1px solid #5f5f5f; /*добавляем бордюр справа*/
+  box-shadow:0px 0px 0px 0px rgba(0,0,0,0.9);
+  border-radius:4px;
+  /* border-left: 1px solid #5f5f5f; */ /* и слева */
+  -moz-transition: all 0.3s 0.01s ease; /*делаем плавный переход*/
+  /*-o-transition: all 0.3s 0.01s ease;*/
+  -webkit-transition: all 0.3s 0.01s ease;
+}
+#main_menu_link:hover {
+  background:#cfcfcf;/*добавляем эффект при наведении*/
+}
+
+#login-form {
+	background-color: #363636;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;		
+	margin: 150px auto;
+	width: 300px;
+	font-family: sans-serif;
+	font-size: 16px;
+	-webkit-box-shadow:  0px 10px 20px 0px rgba(0, 0, 0, 0.3);
+	box-shadow:  0px 10px 20px 0px rgba(0, 0, 0, 0.3);
+  
+}
+
+#login-form fieldset {
+	border: none;
+	padding: 20px;
+	position: relative;
+}
+
+#login-form fieldset form {
+	overflow: hidden;
+	width: 270px;
+}
+
+#login-form fieldset form input {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	outline: none;
+	-webkit-appearance:none;
+	width: 260px;
+	align: center;
+	position: center;
+  
+
+}
+
+#login-form fieldset form input[type="text"] {
+	border: 1px solid #292829;
+	border-radius: 3px 3px 0px 0px;
+	-moz-border-radius: 3px 3px 0px 0px;
+	-webkit-border-radius: 3px 3px 0px 0px;
+	padding: 12px 10px;
+	width: 238px;
+	-webkit-appearance:none;
+}
+
+#login-form fieldset form input[type="password"] {
+	border: 1px solid #292829;
+	border-top: none;
+	border-radius: 0px 0px 3px 3px;
+	-moz-border-radius: 0px 0px 3px 3px;
+	-webkit-border-radius: 0px 0px 3px 3px;
+	padding: 12px 10px;
+	width: 238px;
+	-webkit-appearance:none;
+}
+
+#login-form fieldset form input[type="submit"] {
+	background-color: #ebebeb;
+	border: none;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	color: #404040;
+	cursor: pointer;
+	float: none;
+	font-weight: bold;
+	margin-top: 20px;
+	padding: 12px 12px;
+	-webkit-appearance: none;
+}
+
+#login-form fieldset form input[type="submit"]:hover {
+	background-color: #e0e0e0;
+}
+
+#login-form fieldset form span:before {
+	background-color: #c9c9c9;
+	border-radius: 50%;
+	-moz-border-radius: 50%;
+	-webkit-border-radius: 50%;
+	content: "?";
+	display: inline-block;
+	height: 20px;
+	line-height: 20px;
+	margin-right: 10px;
+	text-align: center;
+	width: 20px;
+}
+
+#login-form fieldset form span {
+	font-size: 12px;
+	margin-top: 40px;
+}
+
+#login-form fieldset form span a{
+	color: #eb6d1a;
+	text-decoration: none;	
+}
+
+#login-form fieldset form span a:hover {
+	color: #eb6d1a;
+}
