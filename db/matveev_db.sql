@@ -1,6 +1,6 @@
-drop database if exists nikulin_db;
-create database nikulin_db;
-use nikulin_db;
+-- drop database if exists matveev_db;
+-- create database matveev_db;
+use matveev_db;
 
 /* users - пользователи */
 
@@ -107,7 +107,7 @@ values (null, 1, 101, 1, '2016-06-16', 2, 1, 2000000.00, 1, 24.00, 4, 10, 5, 'Е
 
 /* Вывод данных */
 
-select * from users;
-select * from services;
-select * from clients;
-select * from requests;
+-- select * from users;
+-- select * from services;
+-- select * from clients;
+-- select * from requests;
