@@ -60,6 +60,8 @@ constraint fk_service foreign key (service_id)
 references services (service_id)
 );
 
+ALTER TABLE requests ADD re_type ENUM('Жилая', 'Не жилая') DEFAULT 'Жилая' NOT NULL;
+
 /* Данные */
 
 /* Данные - пользователи */

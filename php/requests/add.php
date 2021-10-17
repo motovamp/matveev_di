@@ -7,7 +7,7 @@ try{
 $request_id = $_POST['request_id'];
 $client_id = $_POST['client_id'];
 $service_id = $_POST['service_id'];
-//$contract_num = $_POST['contract_num'];
+$re_type = $_POST['re_type'];
 $rq_date = $_POST['rq_date'];
 $rq_status = $_POST['rq_status'];
 $rq_pay = $_POST['rq_pay'];
@@ -38,8 +38,8 @@ if(($row1['count'] == 0) || ($row2['count'] ==0)){
 else{ */
 //определяем количество записей в таюблице
 //$stm = $dbh->prepare("INSERT INTO requests VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);");
-$stm = $dbh->prepare("INSERT INTO requests (request_id, client_id, service_id, contract_num, rq_date, rq_status, rq_pay, obj_sum, obj_rooms, obj_size, obj_floor, obj_floors, obj_district, obj_address, rq_note) SELECT ?,?,?,max(contract_num)+1,?,?,?,?,?,?,?,?,?,?,? FROM requests;");
-$stm->execute(array($request_id, $client_id, $service_id,/* $contract_num,*/ $rq_date, $rq_status, $rq_pay, $obj_sum, $obj_rooms, $obj_size, $obj_floor, $obj_floors, $obj_district, $obj_address, $rq_note));
+$stm = $dbh->prepare("INSERT INTO requests (request_id, client_id, service_id, re_type, contract_num, rq_date, rq_status, rq_pay, obj_sum, obj_rooms, obj_size, obj_floor, obj_floors, obj_district, obj_address, rq_note) SELECT ?,?,?,max(contract_num)+1,?,?,?,?,?,?,?,?,?,?,? FROM requests;");
+$stm->execute(array($request_id, $client_id, $service_id,$re_type, $rq_date, $rq_status, $rq_pay, $obj_sum, $obj_rooms, $obj_size, $obj_floor, $obj_floors, $obj_district, $obj_address, $rq_note));
 //}
 }
 catch(PDOException $e){

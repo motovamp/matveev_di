@@ -1,17 +1,12 @@
 <?php 
 session_start();
 header("Content-Type: text/html; charset=utf-8");
-//если получен ID сессии
-if (isset($_SESSION['id'])){
-	//то пользователь авторизован, ничего не делаем
-}
-else{
-	//иначе перенаправляем на страницу авторизации
-	echo '<script type="text/javascript">;
-	location.replace("login.php");
-	</script>';
-}
-?>
+// если не получен ID сессии
+// перенаправляем на страницу авторизации
+if (!isset($_SESSION['id'])) {
+	header("Location: /page/login.php");
+	exit();
+} ?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -19,21 +14,13 @@ else{
 <!-- CSS //-->
 	<link rel="stylesheet" type="text/css" href="../css/index.css">
 	<link rel="stylesheet" type="text/css" media="screen" href="../css/smoothness/jquery-ui.css">
-	<!-- <link rel="stylesheet" type="text/css" media="screen" href="../css/searchFilter.css">
-	<link rel="stylesheet" type="text/css" media="screen" href="../js/plugins/searchFilter.css"> -->
 	<link rel="stylesheet" type="text/css" media="screen" href="../css/ui.jqgrid.css">
 <!-- JS //-->
 	<script type="text/javascript" src="../js/jquery-3.1.1.min.js"></script>
 	<script type="text/javascript" src="../js/i18n/grid.locale-ru.js"></script>
-	<!-- <script type="text/javascript" src="../js/jquery.searchFilter.js"></script>
-	<script type="text/javascript" src="../js/plugins/jquery.searchFilter.js"></script> -->
 	<script type="text/javascript" src="../js/jquery.jqGrid.min.js"></script>
-	<!-- <script type="text/javascript" src="../js/jquery.searchFilter.js"></script>
-	<script type="text/javascript" src="../js/plugins/jquery.searchFilter.js"></script> -->
-	<!-- <script type="text/javascript" src="../js/grid.addons.js"></script> -->
-	<!-- <script type="text/javascript" src="../js/jquery.searchFilter.js"></script>
-	<script type="text/javascript" src="../js/plugins/jquery.searchFilter.js"></script> -->
-	
+	<script type="text/javascript" src="../js/jquery-ui.js"></script>
+	<script type="text/javascript" src="../js/imask.js"></script>	
 	<script type="text/javascript" src="../js/inputCheck.js"></script>
 	<title>БД "Клиенты"</title>
 </head>
@@ -58,10 +45,22 @@ else{
 <!-- GRID TABLE //-->			
 			<table id="jqGrid"></table>
 			<div id="jqGridPager"></div>
-<!-- GRID CODE //-->
-			<script>
+			<input type="checkbox" id="fcheck" style="cursor: pointer;" onclick="reload()">
+			<span onclick="reload(true)" style="cursor: pointer;">Показывать всех</span>
+			<script type="text/javascript">
+				var filtered = 0;
+				function reload(change) {
+					if(change) {
+						$("#fcheck").prop('checked', !$('#fcheck').is(':checked'))
+					}
+					filtered = $('#fcheck').is(':checked') ? 0 : 1;
+
+					$("#jqGrid").jqGrid('setGridParam',{url: "../php/clients/getdata.php?filtered=" + filtered, page:1}).trigger("reloadGrid")
+				}
+			
 			$(document).ready(function(){
 			var lastSel;
+			
 			$("#jqGrid").jqGrid( {
 				url:'../php/clients/getdata.php',
 				datatype: 'json',
@@ -116,6 +115,85 @@ else{
 				   }
 				}
 			});
+
+			// --> COOKIE
+
+			function setCookie(name, value, options) {
+				options = options || {};
+				var expires = options.expires;
+			
+				if (typeof expires == "number" && expires) {
+					var d = new Date();
+					d.setTime(d.getTime() + expires * 1000);
+					expires = options.expires = d;
+				}
+				if (expires && expires.toUTCString) {
+					options.expires = expires.toUTCString();
+				}
+			
+				value = encodeURIComponent(value);
+			
+				var updatedCookie = name + "=" + value;
+			
+				for (var propName in options) {
+					updatedCookie += "; " + propName;
+					var propValue = options[propName];
+					if (propValue !== true) updatedCookie += "=" + propValue;
+				}
+				document.cookie = updatedCookie;
+			}
+
+			/* Локализация datepicker */
+			$.datepicker.regional['ru'] = {
+				closeText: 'Закрыть',
+				prevText: 'Предыдущий',
+				nextText: 'Следующий',
+				currentText: 'Сегодня',
+				monthNames: ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'],
+				monthNamesShort: ['Янв','Фев','Мар','Апр','Май','Июн','Июл','Авг','Сен','Окт','Ноя','Дек'],
+				dayNames: ['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'],
+				dayNamesShort: ['вск','пнд','втр','срд','чтв','птн','сбт'],
+				dayNamesMin: ['Вс','Пн','Вт','Ср','Чт','Пт','Сб'],
+				weekHeader: 'Не',
+				dateFormat: 'yy-mm-dd',
+				firstDay: 1,
+				isRTL: false,
+				showMonthAfterYear: false,
+				yearSuffix: ''
+			};
+			$.datepicker.setDefaults($.datepicker.regional['ru']);
+
+			// --> Mutation observer for mask edit and calendar
+			function mutaCb(records) {
+				records.forEach(function (record) {
+					let list = record.addedNodes;					
+					for (let i = list.length - 1; i > -1; i-- ) {
+						if (list[i].id == "editmodjqGrid") {
+							let container = list[i];
+
+							let element = container.querySelector('#passport_num:not(.masked)');
+							if(element) { 
+								IMask(element, {mask: '0000 000000', lazy: false})
+							}
+
+							element = container.querySelector('#tel:not(.masked)');
+							if(element) { 
+								IMask(element, {mask: '+{7}(000) 000-00-00', lazy: false})
+							}
+							
+							element = container.querySelector('#passport_date');
+							if(element) { 
+								$(element).datepicker()	
+							}
+						}
+					}
+				});
+			}
+
+			const observer = new MutationObserver(mutaCb);
+			observer.observe(document.body, { childList: true, subtree: true });
+			// -----------------------
+
 			
 			$("#jqGrid").jqGrid('navGrid','#jqGridPager',{edit:true,add:true,del:true,search:true},
 			{
@@ -125,7 +203,7 @@ else{
 				reloadAfterSubmit: true,
 				bSubmit: "Сохранить",
 				savekey:[true,13],
-				navkeys:[true,38,40]
+				navkeys:[true,38,40]				
 			},
 		
 			{
@@ -153,11 +231,13 @@ else{
 				closeOnEscape: true,
 				multipleSearch: true,
 				closeAfterSearch: true
+
 			}
 			);
 			
 			// поиск по колонкам
-			//jQuery("#jqGrid").jqGrid('filterToolbar',{searchOperators:true});
+			// $("#jqGrid").jqGrid('filterToolbar',{searchOperators:true});
+			
 		
 			});
 						

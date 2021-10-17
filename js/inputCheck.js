@@ -28,12 +28,13 @@ function passport_placeCheck(value, colname) {
 }
 
 function telCheck(value, colname) {
-	var re = /^\+7\d{10}$/;
-	if (re.test(value)) {
+	let res = value.replace(/\D+/g, '');
+	console.log(res);
+	if (res.length == 11) {
 		return [true,""];
 	}
 	else {
-		return [false,colname+": Пожалуйста, введите правильный номер телефона. Пример: +79995554433"];
+		return [false, colname+": Пожалуйста, введите правильный номер телефона. Пример: +7(999) 555-44-33"];
 	}
 }
 

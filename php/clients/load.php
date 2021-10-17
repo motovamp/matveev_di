@@ -9,7 +9,7 @@ $o_fio = $_POST['o_fio'];
 $passport_num = $_POST['passport_num'];
 $passport_date = $_POST['passport_date'];
 $passport_place = $_POST['passport_place'];
-$tel = $_POST['tel'];
+$tel = '+'.preg_replace('/[^\d]/', '', $_POST['tel']);
 //подключаемся к базе
 include ("../connect.php");
 /* $dbh = new PDO('mysql:host=localhost;dbname=nikulin_db','root', '157266');

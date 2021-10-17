@@ -13,7 +13,7 @@ $dbh->exec('SET CHARACTER SET utf8'); */
 $qWhere='';
 /* SEARCH */
 if (isset($_POST['_search'])&&$_POST['_search']=='true'){
-	$allowedFields=array('f_fio','i_fio','o_fio','service_name','contract_num','rq_date','rq_status','rq_pay','obj_sum','obj_rooms','obj_size','obj_floor','obj_floors','obj_district','obj_address','rq_note');
+	$allowedFields=array('f_fio','i_fio','o_fio','service_name','contract_num','rq_date','rq_status','rq_pay', 're_type', 'obj_sum','obj_rooms','obj_size','obj_floor','obj_floors','obj_district','obj_address','rq_note');
 	$allowedOperations=array('AND', 'OR');
 
 	$searchData= json_decode($_POST['filters']);
@@ -59,7 +59,7 @@ $rows = $dbh->query('SELECT COUNT(request_id) AS count FROM requests JOIN client
 $totalRows = $rows->fetch(PDO::FETCH_ASSOC);
 $firstRowIndex = $curPage * $rowsPerPage - $rowsPerPage;
 //получаем список пользователей из базы
-$res = $dbh->query('SELECT request_id, requests.client_id, requests.service_id, f_fio, i_fio, o_fio, service_name, contract_num, rq_date, rq_status, rq_pay, obj_sum, obj_rooms, obj_size, obj_floor, obj_floors, obj_district, obj_address, rq_note FROM  requests JOIN clients ON requests.client_id = clients.client_id JOIN services ON requests.service_id = services.service_id'.$qWhere.' ORDER BY '.$sortingField.' '.$sortingOrder.' LIMIT '.$firstRowIndex.', '.$rowsPerPage);
+$res = $dbh->query('SELECT request_id, requests.client_id, requests.service_id, requests.re_type, f_fio, i_fio, o_fio, service_name, contract_num, rq_date, rq_status, rq_pay, obj_sum, obj_rooms, obj_size, obj_floor, obj_floors, obj_district, obj_address, rq_note FROM  requests JOIN clients ON requests.client_id = clients.client_id JOIN services ON requests.service_id = services.service_id'.$qWhere.' ORDER BY '.$sortingField.' '.$sortingOrder.' LIMIT '.$firstRowIndex.', '.$rowsPerPage);
 
 //сохраняем номер текущей страницы, общее количество страниц и общее количество записей
 $response->page =  $curPage;
@@ -69,7 +69,7 @@ $response->records = $totalRows['count'];
 $i=0;
 while($row = $res->fetch(PDO::FETCH_ASSOC)){
 	$response->rows[$i]['request_id']=$row['request_id'];
-	$response->rows[$i]['cell']=array($row['request_id'], $row['client_id'], $row['service_id'], $row['f_fio'], $row['i_fio'], $row['o_fio'], $row['service_name'], $row['contract_num'], $row['rq_date'], $row['rq_status'], $row['rq_pay'], $row['obj_sum'], $row['obj_rooms'], $row['obj_size'], $row['obj_floor'], $row['obj_floors'], $row['obj_district'], $row['obj_address'], $row['rq_note']);
+	$response->rows[$i]['cell']=array($row['request_id'], $row['client_id'], $row['service_id'], $row['re_type'], $row['f_fio'], $row['i_fio'], $row['o_fio'], $row['service_name'], $row['contract_num'], $row['rq_date'], $row['rq_status'], $row['rq_pay'], $row['obj_sum'], $row['obj_rooms'], $row['obj_size'], $row['obj_floor'], $row['obj_floors'], $row['obj_district'], $row['obj_address'], $row['rq_note']);
 	$i++;
 }
 	echo json_encode($response);

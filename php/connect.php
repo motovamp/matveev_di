@@ -20,4 +20,3 @@ if(file_exists(__DIR__."/connect-local.php")) {
     );
     $dbh = new PDO($dsn, $user, $pass, $opt);
 }
-?>
